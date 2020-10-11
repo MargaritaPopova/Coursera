@@ -40,8 +40,6 @@ class Client:
         self.status = self.response[0]
         if self.status != 'ok':
             raise ClientError(self.status)
-        if self.reply == '':
-            return {}
 
     def get(self, request):
         self.sock.send(f'get {request}\n'.encode("utf8"))
