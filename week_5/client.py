@@ -8,7 +8,7 @@ class ClientError(Exception):
         self.response = response
 
     def __str__(self):
-        return f'Сервер вернул ответ {self.response}'
+        return f'Сервер вернул ответ <<{self.response}>>'
 
 
 class Client:
@@ -40,6 +40,9 @@ class Client:
         self.status = self.response[0]
         if self.status != 'ok':
             raise ClientError(self.status)
+
+    def send(self, msg):
+        self.sock.send(msg.encode())
 
     def get(self, request):
         self.sock.send(f'get {request}\n'.encode("utf8"))
@@ -74,10 +77,12 @@ if __name__ == '__main__':
     # print(c.get('get eardrum.cpu\n'))
     # # print(c.get('get lock.cpu\n'))
     # print(c.get('balbalbla'))
-    c.put("eardrum.cpu", 27.0, 1000)
-    c.put("eardrum.cpu", 27.0, 1001)
-    c.put("eardrum.cpu", 27.0, 1002)
     print(c.get('*'))
+
+    c.put("eardrum.cpu", 27.0, 1000)
+    # c.put("eardrum.cpu", 27.0, 1001)
+    # c.put("eardrum.cpu", 27.0, 1002)
+    # print(c.get('*'))
     c.sock.close()
 
 
