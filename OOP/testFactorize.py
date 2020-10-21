@@ -37,20 +37,23 @@ class TestFactorize(unittest.TestCase):
                 self.assertEqual(factorize(x), (x,))
 
     def test_two_simple_multipliers(self):
-        cases = [6, 26, 121]
-        with self.subTest(case=6):
-            self.assertEqual(factorize(6), (2, 3))
-        with self.subTest(case=26):
-            self.assertEqual(factorize(26), (2, 13))
-        with self.subTest(case=121):
-            self.assertEqual(factorize(121), (11, 11))
+        cases = [
+            (6, (2, 3)),
+            (26, (2, 13)),
+            (121, (11, 11))
+        ]
+        for x, expected in cases:
+            with self.subTest(case=x):
+                self.assertEqual(factorize(x), expected)
 
     def test_many_multipliers(self):
-        cases = [1001, 9699690]
-        with self.subTest(case=1001):
-            self.assertEqual(factorize(1001), (7, 11, 13))
-        with self.subTest(case=9699690):
-            self.assertEqual(factorize(9699690), (2, 3, 5, 7, 11, 13, 17, 19))
+        cases = [
+            (1001, (7, 11, 13)),
+            (9699690, (2, 3, 5, 7, 11, 13, 17, 19))
+        ]
+        for x, expected in cases:
+            with self.subTest(case=x):
+                self.assertEqual(factorize(x), expected)
 
 
 if __name__ == '__main__':
